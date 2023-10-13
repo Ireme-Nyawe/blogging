@@ -31,7 +31,7 @@ var options = {
       url: 'http://localhost:4000/'
     }]
   },
-  apis: ['./src/Docs/*.js'] //  Determining path
+  apis: ['./src/Docs/*.js'] //  Determining pa
 };
 
 var swaggerSpec = (0, _swaggerJsdoc["default"])(options);
