@@ -5,6 +5,16 @@ import { uploadToCloud } from "../helper/cloud";
 export const createBlog = async(req,res) =>{
     try {
         const {blogImage,title,header,contents} = req.body;
+        const checkTitle = await blogTable.findOne({
+          email: req.body.title,
+      });
+      
+      if(checkTitle){
+          return res.status(500).json({
+              status : 500,
+              message : "Blog With This Title Already Exist, Try Another!", 
+          })
+      }
         let result;
         if(req.file){
             result = await uploadToCloud(req.file,res);
