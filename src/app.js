@@ -25,7 +25,7 @@ const options = {
             url: 'http://localhost:4000/'
         }]
     },
-    apis : ['./src/Docs/*.js'], //  Determining path
+    apis : ['./src/Docs/*.js'], //  Determining pa
 }
 const swaggerSpec = swaggerJSDoc(options);
 app.use("/docs/",swaggerUi.serve,swaggerUi.setup(swaggerSpec))
