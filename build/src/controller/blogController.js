@@ -13,21 +13,36 @@ var _cloud = require("../helper/cloud");
 
 var createBlog = exports.createBlog = /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
-    var _result, _result2, _req$body, blogImage, title, header, contents, result, blog;
+    var _result, _result2, _req$body, blogImage, title, header, contents, checkTitle, result, blog;
     return _regenerator["default"].wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
           _context.prev = 0;
           _req$body = req.body, blogImage = _req$body.blogImage, title = _req$body.title, header = _req$body.header, contents = _req$body.contents;
-          if (!req.file) {
-            _context.next = 6;
+          _context.next = 4;
+          return _blogModel["default"].findOne({
+            email: req.body.title
+          });
+        case 4:
+          checkTitle = _context.sent;
+          if (!checkTitle) {
+            _context.next = 7;
             break;
           }
-          _context.next = 5;
+          return _context.abrupt("return", res.status(500).json({
+            status: 500,
+            message: "Blog With This Title Already Exist, Try Another!"
+          }));
+        case 7:
+          if (!req.file) {
+            _context.next = 11;
+            break;
+          }
+          _context.next = 10;
           return (0, _cloud.uploadToCloud)(req.file, res);
-        case 5:
+        case 10:
           result = _context.sent;
-        case 6:
+        case 11:
           blog = _blogModel["default"].create({
             blogImage: ((_result = result) === null || _result === void 0 ? void 0 : _result.secure_url) || "https://res.cloudinary.com/ddlzcnyhe/image/upload/v1696595213/cld-sample.jpg",
             title: title,
@@ -45,18 +60,18 @@ var createBlog = exports.createBlog = /*#__PURE__*/function () {
               author: req.userTable.lname
             }
           }));
-        case 10:
-          _context.prev = 10;
+        case 15:
+          _context.prev = 15;
           _context.t0 = _context["catch"](0);
           return _context.abrupt("return", res.status(500).json({
             message: "Failed To Create A Blog!",
             error: _context.t0.message
           }));
-        case 13:
+        case 18:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 10]]);
+    }, _callee, null, [[0, 15]]);
   }));
   return function createBlog(_x, _x2) {
     return _ref.apply(this, arguments);
