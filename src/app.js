@@ -9,11 +9,27 @@ import swaggerUi from "swagger-ui-express";
 // importing routes
 import routeBlog from "./routes/blogRoutes";
 import routeUser from "./routes/userRoutes";
+const app=express();
 
 
 // configuration
-
-const app=express();
+// configuration of swagger
+const options = {
+    definition : {
+        openapi : '3.0.0',
+        info : {
+            title : 'APIs Documentation',
+            version : '1.0.0'
+        },
+        servers :[{
+            url: 'http://localhost:4000/'
+        }]
+    },
+    apis : ['./src/Docs/*.js'], //  Determining path
+}
+const swaggerSpec = swaggerJSDoc(options);
+app.use("/docs/",swaggerUi.serve,swaggerUi.setup(swaggerSpec))
+// dependences configuraion
 dotenv.config();
 
 app.use(cors());
