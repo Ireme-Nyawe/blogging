@@ -50,7 +50,7 @@ app.use("/api/cohort/user", _userRoutes["default"]);
 
 // test API
 app.get("/", function (req, res) {
-  res.status(200).json({
+  return res.status(200).json({
     status: "Well Done",
     author: "AKIMANA",
     message: "Hello, My API is on Set"
