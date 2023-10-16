@@ -22,7 +22,7 @@ const options = {
             version : '1.0.0'
         },
         servers :[{
-            url: 'http://localhost:4000/'
+            url: 'https://blog-r6ho.onrender.com'
         }]
     },
     apis : ['./src/Docs/*.js'], //  Determining pa
@@ -42,7 +42,7 @@ app.use("/api/cohort/user", routeUser);
 
 // test API
 app.get("/",(req,res) =>{
-res.status(200).json({
+return res.status(200).json({
     status:"Well Done",
     author:"AKIMANA",
     message:"Hello, My API is on Set",
