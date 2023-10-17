@@ -149,7 +149,7 @@ export const updateUser = async(req, res) => {
       if (!upUser) {
         return res.status(404).json({
           status: "404",
-          message: "Id Not Found",
+          message: "Id Not Found, For Any User!",
         })
         
       }
@@ -171,7 +171,13 @@ export const updateUser = async(req, res) => {
               return res.status(201).json({
                   status : "201",
                   message : "Good Job, User update Succcessfull.",
-                  data : update,
+                  data : {
+                    fname,
+                    lname,
+                    email,
+                    password : hashedpass,
+                    profile : userprof?.secure_url,
+                },
               });
       }
   } 

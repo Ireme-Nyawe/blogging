@@ -6,7 +6,7 @@ export const createBlog = async(req,res) =>{
     try {
         const {blogImage,title,header,contents} = req.body;
         const checkTitle = await blogTable.findOne({
-          email: req.body.title,
+          title: req.body.title,
       });
       
       if(checkTitle){
@@ -90,46 +90,48 @@ export const viewAllBlogs = async (req,res) =>{
 
 //   update blog
 export const updateBlog = async(req,res) =>{
-    try {
-        const {id}=req.params;
-        const checkId=await blogTable.findById(id);
-        if(!checkId){
-            return res.status(404).json({
-                message : "Id Do Not Correspond To Any Blog!",
-            })
-        };
+  try {
+    const { id } = req.params;
 
-        const {blogImage,title,header,contents} = req.body;
-        let result;
-        if(req.file){
-            result = await uploadToCloud(req.file,res);
-        }
-        const blog = blogTable.findByIdAndUpdate(id,{
-                blogImage : result?.secure_url || "https://res.cloudinary.com/ddlzcnyhe/image/upload/v1696595213/cld-sample.jpg",
-                title,
-                header,
-                contents,
-                author: req.userTable.lname
+      const {blogImage,title,header,contents} = req.body;
 
-            })
-
-            return res.status(200).json({
-                message : "Blog Updated SuccessFully, Check Below:",
-                data: 
-                {
-                blogImage : result?.secure_url,
-                title,
-                header,
-                contents,
-                author: req.userTable.lname
-                }
-            })
-    } catch (error) {
-        return res.status(500).json({
-            message : "Failed To Update A Blog!",
-            error : error.message,
-        })
+    const checkId= await blogTable.findById(id);
+    if(!checkId){
+      return res.status(500).json({
+        status : 500,
+        message : "Inalid Blog-Id, do not correspond to any blog!", 
+    })
     }
+      let result;
+      if(req.file){
+          result = await uploadToCloud(req.file,res);
+      }
+      const blog = blogTable.findByIdAndUpdate(id,{
+              blogImage : result?.secure_url || "https://res.cloudinary.com/ddlzcnyhe/image/upload/v1696595213/cld-sample.jpg",
+              title,
+              header,
+              contents,
+              author: req.userTable.lname
+
+          })
+
+          return res.status(200).json({
+              message : "Blog Created SuccessFully.",
+              data: 
+              {
+                  blogImage : result?.secure_url,
+              title,
+              header,
+              contents,
+              author: req.userTable.lname
+              }
+          })
+  } catch (error) {
+      return res.status(500).json({
+          message : "Failed To Create A Blog!",
+          error : error.message,
+      })
+  }
 };
 
 // delete A blog

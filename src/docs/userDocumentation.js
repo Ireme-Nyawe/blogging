@@ -3,7 +3,7 @@
  * /api/cohort/user/signUp:
  *   post:
  *     summary: Create A User Account.
- *     tags: [User-Model]
+ *     tags: [Users-Model]
  *     requestBody:
  *       content:
  *         multipart/form-data:
@@ -24,13 +24,15 @@
  *     responses:
  *       200:
  *         description: An Account Created successfully.
+ *       201:
+ *         Good Job, User Account Created Well.
  *       500:
  *         description: Account Creation Failed!
  * 
  * /api/cohort/user/login:
  *   post:
  *     summary: SignIn For Advance .
- *     tags: [User-Login]
+ *     tags: [Users-Model]
  *     requestBody:
  *       content:
  *         multipart/form-data:
@@ -50,7 +52,7 @@
  * /api/cohort/user/viewUser/{id}:
  *   get:
  *     summary: View User Data Specifically.
- *     tags: [Users]
+ *     tags: [Users-Model]
  *     parameters:
  *       - in: path
  *         name: id
@@ -69,7 +71,7 @@
  * /api/cohort/user/viewUsers:
  *   get:
  *     summary: View All Users Done With signUp.
- *     tags: [Users]
+ *     tags: [Users-Model]
  *     
  *     responses:
  *       200:
@@ -79,10 +81,10 @@
  * 
  * 
  * 
- * /api/klab/user/update/{id}:
+ * /api/cohort/user/update/{id}:
  *   put:
  *     summary: Update User With Provided Id.
- *     tags: [Users]
+ *     tags: [Users-Model]
  *     
  *     parameters:
  *       - in: path
@@ -120,7 +122,7 @@
  * /api/cohort/user/delete/{id}:
  *   delete:
  *     summary: Use Id To Delete A User.
- *     tags: [Users]
+ *     tags: [Users-Model]
  *     
  *     parameters:
  *       - in: path

@@ -9,6 +9,7 @@ import swaggerUi from "swagger-ui-express";
 // importing routes
 import routeBlog from "./routes/blogRoutes";
 import routeUser from "./routes/userRoutes";
+// import commRoutes from "./routes/commentRoutes";
 const app=express();
 
 
@@ -21,13 +22,29 @@ const options = {
             title : 'APIs Documentation',
             version : '1.0.0'
         },
+        
         servers :[{
-            url: 'https://blog-r6ho.onrender.com'
-        }]
+            url: 'http://localhost:4000',
+        }],
+        security: [
+            {
+              BearerAuth: [],
+            },
+          ],
+          components: {
+            securitySchemes: {
+              BearerAuth: {
+                type: 'http',
+                scheme: 'bearer',
+                bearerFormat: 'JWT',
+              },
+            },
+        }
     },
     apis : ['./src/Docs/*.js'], //  Determining pa
 }
-const swaggerSpec = swaggerJSDoc(options);
+
+const swaggerSpec = swaggerJSDoc(options)
 app.use("/docs/",swaggerUi.serve,swaggerUi.setup(swaggerSpec))
 // dependences configuraion
 dotenv.config();
@@ -39,6 +56,7 @@ app.use(bodyParser.urlencoded({extended:false}));
 //routes
 app.use("/api/cohort/blog", routeBlog);
 app.use("/api/cohort/user", routeUser);
+// app.use("/api/cohort/comment", commRoutes);
 
 // test API
 app.get("/",(req,res) =>{

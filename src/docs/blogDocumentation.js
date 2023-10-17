@@ -12,11 +12,10 @@
  *             properties:
  *               BlogImage:
  *                 type: string
+ *                 format: binary
  *               title:
  *                 type: string
  *               header:
- *                 type: string
- *               description:
  *                 type: string
  *               contents:
  *                 type: string
@@ -78,11 +77,10 @@
  *             properties:
  *               BlogImage:
  *                  type: string
+ *                  format: binary
  *               title:
  *                 type: string
  *               header:
- *                 type: string
- *               description:
  *                 type: string
  *               contents:
  *                 type: string
