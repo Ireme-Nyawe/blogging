@@ -41,7 +41,7 @@ const options = {
             },
         }
     },
-    apis : ['./src/Docs/*.js'], //  Determining pa
+    apis : [`${__dirname}/src/Docs/*.js`], //  Determining pa
 }
 
 const swaggerSpec = swaggerJSDoc(options)
