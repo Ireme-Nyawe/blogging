@@ -2,7 +2,7 @@ import app from "./app";
 import mongoose from "mongoose";
 
 mongoose.set("strictQuery",false);
-mongoose.connect(process.env.Dbc).then(()=>{
+mongoose.connect(process.env.DbC).then(()=>{
     console.log("Good Job, You are Connected To DB");
 })
 .catch((err)=> console.log(err));
