@@ -1,120 +1,328 @@
+// Get all Users Registered
 /**
  * @swagger
- * /api/cohort/blog/create:
+ * /api/klab/blog/createBlog:
  *   post:
- *     summary: New Blog Creation.
- *     tags: [Blog-Model]
+ *     summary: Create a new blog post
+ *     tags:
+ *       - Blog
  *     requestBody:
+ *       required: true
  *       content:
  *         multipart/form-data:
  *           schema:
  *             type: object
  *             properties:
- *               BlogImage:
+ *               bogImage:
  *                 type: string
- *                 format: binary
- *               title:
+ *                 format: binary  
+ *               blogTitle:
  *                 type: string
- *               header:
- *                 type: string
- *               contents:
- *                 type: string
- *               author:
+ *               blogContent:
  *                 type: string
  *     responses:
  *       200:
- *         description: Good job, Blog Created Successfully.
- *       500:
- *         description: Blog Creation Failed.
- * 
- * /api/cohort/blog/viewBlogs:
- *   get:
- *     summary: View All Available Blogs.
- *     tags: [Blog-Model]
- *     responses:
- *       200:
- *         description: Available Blogs Retrieved.
- *       500:
- *         description: Failed to retrieve Available Blogs.
- * 
- * /api/cohort/blog/viewBlog/{id}:
- *   get:
- *     summary: View Specific Blog.
- *     tags: [Blog-Model]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *         description: ID Of Blog To View.
- *     responses:
- *       200:
- *         description: A Given Blog Retrived Successfully.
- *       404:
- *         description: ID Specified Do Not Correspond To Any Blog.
- *       500:
- *         description: Failed to retrieve blog data.
- * 
- * 
- * /api/cohort/blog/update/{id}:
- *   put:
- *     summary: Update Blog With Provided Id.
- *     tags: [Blog-Model]
- *     
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *         description: Id Of Blog To Update.
- *     requestBody:
- *       content:
- *         multipart/form-data:
- *           schema:
- *             type: object
- *             properties:
- *               BlogImage:
- *                  type: string
- *                  format: binary
- *               title:
- *                 type: string
- *               header:
- *                 type: string
- *               contents:
- *                 type: string
- *               author:
- *                 type: string
- *     responses:
- *       200:
- *         description: Well Done, Blog Information Updated Successflly.
- *       404:
- *         description: Id Provided Do Not Correspond To Any Blog!.
- *       500:
- *         description: Failed To Delete Specified Blog!
- * 
- * 
- * /api/cohort/blog/delete/{id}:
- *   delete:
- *     summary: Use Id To Delete A Delete.
- *     tags: [Blog-Model]
- *     
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *         description: The ID Of The Blog To Delete.
- *     responses:
- *       200:
- *         description: Blog Information Deleted Successfull!!
- *       404:
- *         description: No Blog Corresponds To Provided ID!
- *       500:
- *         description: Failed To Delete A Given Blog!
- * 
- * 
+ *         description: Blog post created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: "200"
+ *                 message:
+ *                   type: string
+ *                   example: "Blog post created successfully"
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     bogImage:
+ *                       type: string
+ *                       example: http://example.com/blog_image.jpg
+ *                     blogTitle:
+ *                       type: string
+ *                       example: "Title of the Blog"
+ *                     blogContent:
+ *                       type: string
+ *                       example: "Content of the blog post"
  */
 
+
+
+
+ /**
+ * @swagger
+ * /api/klab/blog/readAllBlogs:
+ *   get:
+ *     summary: Get all blog posts
+ *     tags:
+ *       - Blog
+ *     requestBody:
+ *       required: false
+ *     responses:
+ *       200:
+ *         description: List of all blog posts
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   bogImage:
+ *                     type: string
+ *                     example: http://example.com/blog_image.jpg
+ *                   blogTitle:
+ *                     type: string
+ *                     example: "Title of the Blog"
+ *                   blogContent:
+ *                     type: string
+ *                     example: "Content of the blog post"
+ *       404:
+ *         description: No blogs found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: "404"
+ *                 message:
+ *                   type: string
+ *                   example: "No blogs found"
+ */
+
+
+ /**
+ * @swagger
+ * /api/klab/blog/readById/{id}:
+ *   get:
+ *     summary: Get a blog post by ID
+ *     tags:
+ *       - Blog
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: Blog ID to retrieve
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Blog post found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 bogImage:
+ *                   type: string
+ *                   example: http://example.com/blog_image.jpg
+ *                 blogTitle:
+ *                   type: string
+ *                   example: "Title of the Blog"
+ *                 blogContent:
+ *                   type: string
+ *                   example: "Content of the blog post"
+ *       404:
+ *         description: Blog post not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: "404"
+ *                 message:
+ *                   type: string
+ *                   example: "Blog post not found"
+ */
+
+
+ /**
+ * @swagger
+ * /api/klab/blog/updateBlog/{id}:
+ *   put:
+ *     summary: Update a blog post by ID
+ *     tags:
+ *       - Blog
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: Blog ID to update
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               bogImage:
+ *                 type: string
+ *                 format: binary  
+ *               blogTitle:
+ *                 type: string
+ *               blogContent:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Blog post updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: "200"
+ *                 message:
+ *                   type: string
+ *                   example: "Blog post updated successfully"
+ *       404:
+ *         description: Blog post not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: "404"
+ *                 message:
+ *                   type: string
+ *                   example: "Blog post not found"
+ */
+
+
+ /**
+ * @swagger
+ * /api/klab/blog/deleteBlog/{id}:
+ *   delete:
+ *     summary: Delete a blog post by ID
+ *     tags:
+ *       - Blog
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: Blog ID to delete
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Blog post deleted successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: "200"
+ *                 message:
+ *                   type: string
+ *                   example: "Blog post deleted successfully"
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     bogImage:
+ *                       type: string
+ *                       example: http://example.com/blog_image.jpg
+ *                     blogTitle:
+ *                       type: string
+ *                       example: "Title of the Blog"
+ *                     blogContent:
+ *                       type: string
+ *                       example: "Content of the blog post"
+ *       404:
+ *         description: Blog post not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: "404"
+ *                 message:
+ *                   type: string
+ *                   example: "Blog post not found"
+ */
+
+ 
+/**
+ * @swagger
+ * /api/klab/blog/{id}/comment:
+ *   post:
+ *     summary: Create a comment on a blog post
+ *     tags:
+ *       - Blog
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: Blog ID to comment on
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               UserComment:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Comment added successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: "200"
+ *                 message:
+ *                   type: string
+ *                   example: "Comment added successfully"
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     comment:
+ *                       type: string
+ *                       example: "Great blog post!"
+ *       404:
+ *         description: Blog not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: "404"
+ *                 message:
+ *                   type: string
+ *                   example: "Blog not found"
+ *       500:
+ *         description: Error adding comment
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: "500"
+ *                 message:
+ *                   type: string
+ *                   example: "Error adding comment"
+ */
